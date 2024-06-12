@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Instagram OAuth Redirect</title>
+</head>
+<body>
+    <h1>Instagram OAuth Redirect</h1>
+    <p id="auth-code"></p>
+
+    <script>
+        function getQueryParams() {
+            const params = {};
+            const queryString = window.location.search.substring(1);
+            const regex = /([^&=]+)=([^&]*)/g;
+            let m;
+            while (m = regex.exec(queryString)) {
+                params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+            }
+            return params;
+        }
+
+        const params = getQueryParams();
+        if (params.code) {
+            document.getElementById('auth-code').innerText = `Authorization Code: ${params.code}`;
+        } else {
+            document.getElementById('auth-code').innerText = 'No authorization code found in the URL.';
+        }
+    </script>
+</body>
+</html>
